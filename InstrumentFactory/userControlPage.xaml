@@ -1,0 +1,136 @@
+﻿<Page x:Class="InstrumentFactory.userControlPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InstrumentFactory"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="userControlPage">
+    <Grid>
+        <Border Grid.Row="0" CornerRadius="32" Background="White" Margin="50">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="32" Color="Gray" ShadowDepth="8"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="64"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <StackPanel Grid.Row="0" Margin="15" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="Список сотрудников" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="Gray" Margin="8"/>
+                        <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="300" Name="listView" ScrollViewer.CanContentScroll="False" MinWidth="320" Height="190" MinHeight="190" Style="{StaticResource MaterialDesignListView}">
+                            <ListView.Effect>
+                                <DropShadowEffect ShadowDepth="5" Color="LightGray" BlurRadius="32"/>
+                            </ListView.Effect>
+                            <!--
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Focusable" Value="True"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>-->
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="50" Width="50">
+                                            <Image.Source>
+                                                <Binding Path="image">
+                                                    <Binding.TargetNullValue>
+                                                        <ImageSource>pack://application:,,,/icons/image_404.jpg</ImageSource>
+                                                    </Binding.TargetNullValue>
+                                                </Binding>
+                                            </Image.Source>
+                                        </Image>
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8" Text="{Binding fullname}" Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <TextBlock Name="lbl_errors" Foreground="DarkRed" Visibility="Hidden" HorizontalAlignment="Center" Margin="10,20,10,10"/>
+                    </StackPanel>
+                </Grid>
+
+                <Border Grid.Column="1" Margin="16" Background="White" Name="mask" CornerRadius="32"/>
+                <Border Grid.Column="1" Margin="8" CornerRadius="32" Background="#5E4DA3">
+                    
+                    <ScrollViewer Name="scroll" Margin="0,12,0,12" Style="{StaticResource MaterialDesignScrollViewer}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=mask}"/>
+                        </ScrollViewer.OpacityMask>
+                        <Grid ScrollViewer.CanContentScroll="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Text="Трудовой договор" Margin="20,5" Foreground="White" Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Name="tb_number_work_treaty" materialDesign:HintAssist.Hint="   Номер договора" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxViewMargin="5,0,5,0" MaxLength="8" HorizontalAlignment="Center" Margin="10,5,5,5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.UnderlineBrush="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="8" Background="#FFFFFF" MinWidth="120"/>
+                                <TextBox Name="tb_date_work_treaty" materialDesign:HintAssist.Hint="   Дата договора" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxViewMargin="5,0,5,0" MaxLength="10" HorizontalAlignment="Center" Margin="10,5,5,5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.UnderlineBrush="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="8" Background="#FFFFFF" MinWidth="120"/>
+                            </StackPanel>
+                        </StackPanel>
+                    
+                        <StackPanel Grid.Row="1">
+                            <TextBlock Text="ФИО" Margin="20,5" Foreground="White" Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                    <Button Name="btn_changePhoto" Grid.Column="0" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="10" MinHeight="120" MinWidth="120" Click="btn_changePhoto_Click">
+                                        <Image Margin="10" MinHeight="80" MinWidth="80" Source="icons/icon_users.png"/>
+                                    </Button>
+
+                                    <Image Name="img_photo" Grid.Column="0" Margin="10" MinHeight="80" MinWidth="80" MouseDown="img_photo_MouseDown"/>
+
+                                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                                        <TextBox Name="tb_firstname" materialDesign:HintAssist.Hint="   Фамилия" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxViewMargin="5,0,5,0" MaxLength="8" HorizontalAlignment="Center" Margin="10,5,5,5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.UnderlineBrush="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="8" Background="#FFFFFF" MinWidth="150"/>
+                                        <TextBox Name="tb_name" materialDesign:HintAssist.Hint="   Имя" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxViewMargin="5,0,5,0" MaxLength="10" HorizontalAlignment="Center" Margin="10,5,5,5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.UnderlineBrush="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="8" Background="#FFFFFF" MinWidth="150"/>
+                                        <TextBox Name="tb_lastname" materialDesign:HintAssist.Hint="   Отчество" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxViewMargin="5,0,5,0" MaxLength="10" HorizontalAlignment="Center" Margin="10,5,5,5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.UnderlineBrush="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="8" Background="#FFFFFF" MinWidth="150"/>
+                                    </StackPanel>
+                            </Grid>
+                            
+                        </StackPanel>
+
+                            <StackPanel Grid.Row="2">
+                                <TextBlock Text="О работнике" Margin="20,5" Foreground="White" Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                    <TextBox Name="tb_birth_date" materialDesign:HintAssist.Hint="   Дата рождения" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxViewMargin="5,0,5,0" MaxLength="10" HorizontalAlignment="Left" Margin="10,5,5,5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.UnderlineBrush="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="8" Background="#FFFFFF" MinWidth="150"/>
+                                    <TextBox Name="tb_place_birth" materialDesign:HintAssist.Hint="   Место рождения" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxViewMargin="5,0,5,0" MaxLength="28" HorizontalAlignment="Left" Margin="10,5,5,5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.UnderlineBrush="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="8" Background="#FFFFFF" MinWidth="150"/>
+                                    <TextBox Name="tb_citizenship" materialDesign:HintAssist.Hint="   Гражданство" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxViewMargin="5,0,5,0" MaxLength="28" HorizontalAlignment="Left" Margin="10,5,5,5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.UnderlineBrush="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="8" Background="#FFFFFF" MinWidth="150"/>
+                                    <TextBox Name="tb_education" materialDesign:HintAssist.Hint="   Образование" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxViewMargin="5,0,5,0" MaxLength="32" HorizontalAlignment="Left" Margin="10,5,5,5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.UnderlineBrush="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="8" Background="#FFFFFF" MinWidth="150"/>
+                                    <TextBox Name="tb_proffecion" materialDesign:HintAssist.Hint="   Профессия" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxViewMargin="5,0,5,0" MaxLength="64" HorizontalAlignment="Left" Margin="10,5,5,5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.UnderlineBrush="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="8" Background="#FFFFFF" MinWidth="150"/>
+                                    <TextBox Name="tb_num_departament" materialDesign:HintAssist.Hint="   Отдел" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:TextFieldAssist.TextBoxViewMargin="5,0,5,0" MaxLength="8" HorizontalAlignment="Left" Margin="10,5,5,5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.UnderlineBrush="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="8" Background="#FFFFFF" MinWidth="150"/>
+
+                                </StackPanel>
+                                <TextBlock Margin="10" Visibility="Hidden" Name="lbl_error_add" Foreground="#DDBEC3" HorizontalAlignment ="Center" Style="{StaticResource MaterialDesignTextBlock}"/>
+                            </StackPanel>
+                        </Grid>
+                    </ScrollViewer>
+                </Border>
+
+                <Button Visibility="Visible" Grid.Row="1" Height="38" Margin="20,2,2,2" Width="120" Style = "{StaticResource MaterialDesignFlatDarkBgButton}"  HorizontalAlignment="Left" Name="btn_back" Background="#5E4DA3" Click="btn_back_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" Foreground="White" Text="Назад"/>
+                    </StackPanel>
+                </Button>
+                <Button Visibility="Visible" Grid.Column="1" Grid.Row="1" Height="42" Margin="0,2,20,2" Width="150" Style = "{StaticResource MaterialDesignFlatDarkBgButton}"  HorizontalAlignment="Right" Name="btn_Add" Background="#5E4DA3" Click="btn_Add_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" Foreground="White" Text="Добавить"/>
+                        <Image Source="icons/icon_user_add.png" Margin="5,0,0,0" Width="32" Height="32"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
